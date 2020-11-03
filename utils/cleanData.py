@@ -1,7 +1,9 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 from glob import glob
 import os
+from pathlib import Path
+
 class cleanData:
     def __init__(self):
         pass
@@ -10,7 +12,7 @@ class cleanData:
 
     def bringLastMonth(self, filenames:list) -> list:
         self.filenames = filenames
-        filenames_clean = []
+        filenames_str = []
 
         month_dict = {"ene":1, "feb":2, "mar":3, "abr":4, "may":5,
                     "jun":6, "jul":7, "ago":8, "sep":9, "oct":10,
@@ -19,16 +21,23 @@ class cleanData:
         for file in filenames:
             file = file.replace(f".{os.path.sep}data{os.path.sep}","").replace(".xlsx","")
             if "2020" not in file:
-                filenames_clean.append(file)
+                filenames_str.append(file)
             else:
+                month = file[11:14]
                 month = file[-3:]
                 if month_dict[month] > i:
                     i = month_dict[month]
                     last_month = month
-        filenames_clean.append(f"2020{last_month}")
+        filenames_str.append(f"2020{last_month}")
+        filenames_clean = filenames_str
+        #filenames_clean = [Path(dir_str) for dir_str in filenames_str]
+
         return filenames_clean
 
     def cleanData(self) -> pd.DataFrame:
+        """
+        Returns a dictionary containing a dataframe as value and its corresponding year as a key
+        """
         # An empty dictionary is initialized in order to store dataframes by year as key
         df_dict={}
 
@@ -39,8 +48,7 @@ class cleanData:
         # For 2020 remove the month in the name
         for year in years_files:
             file_dir = f".{os.path.sep}data{os.path.sep}{year}.xlsx"
-            #file_dir = f"{year}.xlsx"
-            if "2020" in year:
+            if "2020" in str(file_dir):
                 df_dict['2020']= pd.read_excel(file_dir)
             else:
                 df_dict[year]= pd.read_excel(file_dir)
@@ -55,5 +63,5 @@ class cleanData:
             df_dict[i]= df_dict[i].drop(df_dict[i][df_dict[i]["campo"].isnull() & df_dict[i]["operadora"].isnull() & df_dict[i]["departamento"].isnull() ].index)#Eliminate the rows where the value of 
             #the field, operator and municipality is null because it  would not be possible to determine these data with the 
             #remaining information.
-
+            print(df_dict[i].head())
         return df_dict
