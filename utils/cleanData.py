@@ -26,7 +26,7 @@ class cleanData:
                 if month_dict[month] > i:
                     i = month_dict[month]
                     last_month = month
-        filenames_str.append(f"data/2020{last_month}.xlsx")
+        filenames_str.append(f"./data/2020{last_month}.xlsx")
         filenames_clean = [Path(dir_str) for dir_str in filenames_str]
 
         return filenames_clean
@@ -45,11 +45,13 @@ class cleanData:
         # For 2020 remove the month in the name
         for year in range(len(years_files)):
             file_dir = Path(years_files[year])
+            filename = str(file_dir).replace("data/","").replace(".xlsx","").replace("data\\","")
 
-            if "2020" in str(file_dir):
+            if "2020" in filename:
                 df_dict['2020']= pd.read_excel(file_dir)
             else:
-                df_dict[year]= pd.read_excel(file_dir)
+                print(years_files[year])
+                df_dict[filename]= pd.read_excel(file_dir)
 
         # Store dataframes in dictionary
         for i in df_dict.keys():
