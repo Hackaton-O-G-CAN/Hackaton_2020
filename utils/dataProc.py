@@ -3,7 +3,7 @@ import pandas as pd
 from glob import glob
 from pathlib import Path
 
-class cleanData:
+class dataProc:
     def __init__(self):
         pass
     def lss(self, expr = './data/*.*'):
@@ -31,7 +31,7 @@ class cleanData:
 
         return filenames_clean
 
-    def cleanData(self) -> pd.DataFrame:
+    def loadData(self) -> pd.DataFrame:
         """
         Returns a dictionary containing a dataframe as value and its corresponding year as a key
         """
@@ -41,7 +41,7 @@ class cleanData:
         # Load of files in data directory
         list_files = self.lss()
         years_files = self.bringLastMonth(list_files)
-        print("Cleanning data")
+        print("Loading data")
         # For 2020 remove the month in the name
         for year in range(len(years_files)):
             file_dir = Path(years_files[year])
@@ -50,9 +50,17 @@ class cleanData:
             if "2020" in filename:
                 df_dict['2020']= pd.read_excel(file_dir)
             else:
-                print(years_files[year])
                 df_dict[filename]= pd.read_excel(file_dir)
+        print("Loading data finished")
+        return df_dict
 
+    def cleanData(self, df_dict:dict) -> pd.DataFrame:
+        """
+        Returns a dictionary with years as keys and transformed DataFrames as values
+        Clean a dictionary containing keys as yeas and its corresponding Pandas DataFrame
+        """
+        self.df_dict = df_dict
+        print("Cleanning data")
         # Store dataframes in dictionary
         for i in df_dict.keys():
             df_dict[i]=df_dict[i].dropna(axis=0, thresh=2) #delete rows with just nan values
