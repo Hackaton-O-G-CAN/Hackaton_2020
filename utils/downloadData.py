@@ -1,6 +1,6 @@
 import os
 import re
-import urllib.request
+import requests
 
 from numpy import arange
 from pathlib import Path
@@ -32,14 +32,17 @@ class downloadData:
             # Get <a href></a> tags
             files_containers = html_soup.find_all('a', href=True)
             # Filter useful tags
-            links = [href["href"] if ((".xlsx" or ".xls") and "crudo") in str(href).lower() else "" for href in files_containers]
+            links = [href["href"] if (((".xlsx") and ("crudo")) in str(href).lower()) else "" for href in files_containers]
+
             # For each link, clean empty records
             for link in links:
                 if link == "":
                     continue
                 else:
                     links_clean.append(link)
+
             return links_clean
+
         except:
             self.get_links()
 
@@ -80,17 +83,19 @@ class downloadData:
             links = self.get_links()
             filenames = self.get_filenames(links)
 
-            print("Downloading files")
             for url, filename in zip(links, filenames):
                 base_url = "http://www.anh.gov.co"
                 full_url = f"{base_url}/{url}"
 
-                output_dir = f"{base_dir}/{filename}.xlsx"
+                output_dir = Path(f"./{base_dir}/{filename}.xlsx")
 
                 if os.path.isfile(output_dir) == True:
                     continue
                 else:
-                    urllib.request.urlretrieve(full_url, output_dir)
+                    data = requests.get(full_url, stream=True)
+                    with open(output_dir, 'wb') as f:
+                        for ch in data:
+                            f.write(ch)
         else:
             os.mkdir(base_dir)
             self.getData()

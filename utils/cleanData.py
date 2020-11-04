@@ -18,11 +18,11 @@ class cleanData:
                     "nov":11, "dic":12}
         i = 0
         for file in filenames:
-            #file = file.replace("./data/","").replace(".xlsx","")
+            file = file.replace("./data/","").replace(".xlsx","")
             if "2020" not in file:
-                filenames_str.append(file)
+                filenames_str.append(f"./data/{file}.xlsx")
             else:
-                month = file[11:14]
+                month = file[-3:]
                 if month_dict[month] > i:
                     i = month_dict[month]
                     last_month = month
@@ -44,7 +44,7 @@ class cleanData:
 
         # For 2020 remove the month in the name
         for year in range(len(years_files)):
-            file_dir = years_files[year]
+            file_dir = Path(years_files[year])
 
             if "2020" in str(file_dir):
                 df_dict['2020']= pd.read_excel(file_dir)
