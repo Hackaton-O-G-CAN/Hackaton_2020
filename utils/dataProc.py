@@ -18,7 +18,7 @@ class dataProc:
                     "nov":11, "dic":12}
         i = 0
         for file in filenames:
-            file = file.replace("./data/","").replace(".xlsx","")
+            file = file.replace("data/","").replace(".xlsx","").replace("data\\","").replace("./","")
             if "2020" not in file:
                 filenames_str.append(f"{file}.xlsx")
             else:
@@ -26,7 +26,7 @@ class dataProc:
                 if month_dict[month] > i:
                     i = month_dict[month]
                     last_month = month
-        filenames_str.append(f"./data/2020{last_month}.xlsx")
+        filenames_str.append(f"2020{last_month}.xlsx")
         filenames_clean = [Path(dir_str) for dir_str in filenames_str]
 
         return filenames_clean
@@ -40,17 +40,25 @@ class dataProc:
 
         # Load of files in data directory
         list_files = self.lss()
+        print("list files")
+        print(list_files)
         years_files = self.bringLastMonth(list_files)
+        print("years files")
+        print(years_files)
+
         print("Loading data")
         # For 2020 remove the month in the name
+
         for year in range(len(years_files)):
-            file_dir = Path(years_files[year])
+            file_dir = years_files[year]
             filename = str(file_dir).replace("data/","").replace(".xlsx","").replace("data\\","")
+            file_dir = Path(f"./data/{file_dir}")
 
             if "2020" in filename:
                 df_dict['2020']= pd.read_excel(file_dir)
             else:
                 df_dict[filename]= pd.read_excel(file_dir)
+
         print("Loading data finished")
         return df_dict
 
