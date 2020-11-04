@@ -1,13 +1,12 @@
 import numpy as np
 import pandas as pd
 from glob import glob
-import os
 from pathlib import Path
 
 class cleanData:
     def __init__(self):
         pass
-    def lss(self, expr = f'.{os.path.sep}data{os.path.sep}*.*'):
+    def lss(self, expr = './data/*.*'):
         return glob(expr)
 
     def bringLastMonth(self, filenames:list) -> list:
@@ -19,18 +18,16 @@ class cleanData:
                     "nov":11, "dic":12}
         i = 0
         for file in filenames:
-            file = file.replace(f".{os.path.sep}data{os.path.sep}","").replace(".xlsx","")
+            file = file.replace("./data/","").replace(".xlsx","")
             if "2020" not in file:
-                filenames_str.append(file)
+                filenames_str.append(f"{file}.xlsx")
             else:
-                month = file[11:14]
                 month = file[-3:]
                 if month_dict[month] > i:
                     i = month_dict[month]
                     last_month = month
-        filenames_str.append(f"2020{last_month}")
-        filenames_clean = filenames_str
-        #filenames_clean = [Path(dir_str) for dir_str in filenames_str]
+        filenames_str.append(f"data/2020{last_month}.xlsx")
+        filenames_clean = [Path(dir_str) for dir_str in filenames_str]
 
         return filenames_clean
 
@@ -44,10 +41,11 @@ class cleanData:
         # Load of files in data directory
         list_files = self.lss()
         years_files = self.bringLastMonth(list_files)
-
+        print("Cleanning data")
         # For 2020 remove the month in the name
-        for year in years_files:
-            file_dir = f".{os.path.sep}data{os.path.sep}{year}.xlsx"
+        for year in range(len(years_files)):
+            file_dir = Path(years_files[year])
+
             if "2020" in str(file_dir):
                 df_dict['2020']= pd.read_excel(file_dir)
             else:
@@ -59,9 +57,8 @@ class cleanData:
             df_dict[i]=df_dict[i].reset_index(drop=True) #add dpto back as a col
             df_dict[i].columns=df_dict[i].iloc[0].str.lower() #set new first row as cols names
             df_dict[i]=df_dict[i].drop(df_dict[i].index[0]) #drop row in the df with cols names
-            if ("empresa" in df_dict[i]): df_dict[i].rename(columns={"empresa": "operadora"}, inplace=True)
-            df_dict[i]= df_dict[i].drop(df_dict[i][df_dict[i]["campo"].isnull() & df_dict[i]["operadora"].isnull() & df_dict[i]["departamento"].isnull() ].index)#Eliminate the rows where the value of 
+            #df_dict[i]= df_dict[i].drop(df_dict[i][df_dict[i]["campo"].isnull() & df_dict[i]["operadora"].isnull() & df_dict[i]["municipio"].isnull()].index)#Eliminate the rows where the value of 
             #the field, operator and municipality is null because it  would not be possible to determine these data with the 
             #remaining information.
-            print(df_dict[i].head())
+        print("Cleaning data finsihed")
         return df_dict
