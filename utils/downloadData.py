@@ -24,6 +24,7 @@ class downloadData:
         links to be downloaded.
         """
         try:
+            print("Scrapping started")
             links_clean = []
             # Get HTML
             response = get(self.url)
@@ -40,10 +41,11 @@ class downloadData:
                     continue
                 else:
                     links_clean.append(link)
-
+            print("Scrapping finished")
             return links_clean
 
         except:
+            print("Scrapping Failed. Trying again")
             self.get_links()
 
     def get_filenames(self, links: list) -> list:
@@ -69,7 +71,6 @@ class downloadData:
                         file = "2019"
 
             filenames.append(file)
-
         return filenames
 
     def getData(self):
@@ -92,6 +93,7 @@ class downloadData:
                 if os.path.isfile(output_dir) == True:
                     continue
                 else:
+                    print(output_dir)
                     data = requests.get(full_url, stream=True)
                     with open(output_dir, 'wb') as f:
                         for ch in data:
@@ -99,3 +101,4 @@ class downloadData:
         else:
             os.mkdir(base_dir)
             self.getData()
+        print("Files downloaded")

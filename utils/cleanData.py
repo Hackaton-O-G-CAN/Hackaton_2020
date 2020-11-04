@@ -20,7 +20,7 @@ class cleanData:
         for file in filenames:
             file = file.replace("./data/","").replace(".xlsx","")
             if "2020" not in file:
-                filenames_str.append(f"./data/{file}.xlsx")
+                filenames_str.append(f"{file}.xlsx")
             else:
                 month = file[-3:]
                 if month_dict[month] > i:
@@ -41,7 +41,7 @@ class cleanData:
         # Load of files in data directory
         list_files = self.lss()
         years_files = self.bringLastMonth(list_files)
-
+        print("Cleanning data")
         # For 2020 remove the month in the name
         for year in range(len(years_files)):
             file_dir = Path(years_files[year])
@@ -60,5 +60,5 @@ class cleanData:
             #df_dict[i]= df_dict[i].drop(df_dict[i][df_dict[i]["campo"].isnull() & df_dict[i]["operadora"].isnull() & df_dict[i]["municipio"].isnull()].index)#Eliminate the rows where the value of 
             #the field, operator and municipality is null because it  would not be possible to determine these data with the 
             #remaining information.
-
+        print("Cleaning data finsihed")
         return df_dict
