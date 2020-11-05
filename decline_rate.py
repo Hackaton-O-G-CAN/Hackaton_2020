@@ -2,19 +2,40 @@ import numpy as np
 import pandas as pd
 from glob import glob
 import matplotlib.pyplot as plt
-from utils import cleanData
+from utils import downloadData
+from utils import dataProc
+import pickle
 
-b = cleanData.cleanData()
-df_dict = b.cleanData()
+read = 0
+if read:
+    data = dataProc.dataProc()
+    df = data.loadData()
+    df_dict = data.cleanData(df)
+    with open('df_dict.pickle', 'wb') as handle:
+        pickle.dump(df_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+with open('df_dict.pickle', 'rb') as handle:
+    df_dict = pickle.load(handle)
+
+
 
 fig = plt.figure()
 ax = plt.axes()
-
-group = df_dict['2019'].groupby('contrato').sum()
+year = '2019'
 campo = "ABANICO"
-data = group.loc[campo,"enero":"diciembre"].T
+date_0 = pd.to_datetime(f"01 of Jan,{year}")
+print(date_0)
+#x2 = date_0 + pd.to_timedelta(np.arange(12), 'M')
+#print(x2)
 x = pd.period_range('2019-01', periods=12, freq='M')
+x2 = x.to_timestamp()
+print(x2)
+print(x)
 x_temp = np.arange(0,12)
+
+group = df_dict[year].groupby('contrato').sum()
+data = group.loc[campo,"enero":"diciembre"].T
+
 ax.plot(x, data.loc[:],'o', color = 'black')
     
 arps_start = "enero"

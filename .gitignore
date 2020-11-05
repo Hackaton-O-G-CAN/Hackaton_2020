@@ -1,5 +1,6 @@
 # Other
 *.xlsx
+*.pickle
 .DS_Store/
 .vscode
 # Byte-compiled / optimized / DLL files
