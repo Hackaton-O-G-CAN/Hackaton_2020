@@ -1,7 +1,9 @@
 # Other
 *.xlsx
-.DS_Store/
-.vscode
+*.pickle
+.DS_Store
+.vscode/*
+.vscode/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

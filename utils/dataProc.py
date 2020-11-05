@@ -75,6 +75,12 @@ class dataProc:
             df_dict[i]=df_dict[i].reset_index(drop=True) #add dpto back as a col
             df_dict[i].columns=df_dict[i].iloc[0].str.lower() #set new first row as cols names
             df_dict[i]=df_dict[i].drop(df_dict[i].index[0]) #drop row in the df with cols names
+            if ("empresa" in df_dict[i]): df_dict[i].rename(columns={"empresa": "operadora"}, inplace=True)
+            df_dict[i]= df_dict[i].drop(df_dict[i][df_dict[i]["campo"].isnull() & df_dict[i]["operadora"].isnull() & df_dict[i]["departamento"].isnull() ].index)
+            df_dict[i]["campo"] = df_dict[i]["campo"].str.lower()
+            df_dict[i]["contrato"] = df_dict[i]["contrato"].str.lower()
+            df_dict[i]["operadora"] = df_dict[i]["operadora"].str.lower()
+            df_dict[i]["departamento"] = df_dict[i]["departamento"].str.lower()
             #df_dict[i]= df_dict[i].drop(df_dict[i][df_dict[i]["campo"].isnull() & df_dict[i]["operadora"].isnull() & df_dict[i]["municipio"].isnull()].index)#Eliminate the rows where the value of 
             #the field, operator and municipality is null because it  would not be possible to determine these data with the 
             #remaining information.
