@@ -1,5 +1,8 @@
-from utils import downloadData
 from utils import dataProc
+from utils import downloadData
+from utils import generateWeb
+from utils import generateDB
+
 
 if __name__ == "__main__":
 
@@ -13,5 +16,12 @@ if __name__ == "__main__":
 
           df_dict = data.cleanData(df)
 
+          web = generateWeb.generateWeb(df_dict)
+          web.parseHTML(df_dict)
+
           print(df_dict.keys())
+
+          db = generateDB.generateDB(df_dict)
+          db.createDB(df_dict)
+
      run()

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Producción de crudo Fiscalizada</title>
+  <link rel="stylesheet" href="./templates/style.css">
+
+</head>
+
+<body>
+
+  <nav style="border:1px solid #BEBDBD; border-width:2px;">
+    <a class="auxtext" href="index.html"><b>Datos históricos</b></a>
+    <br>
+    <a class="auxtext" href="./web/model.html">Predicciones</a>
+    <br>
+    <a class="auxtext" href="./web/about.html">Info</a>
+    <br>
+    <p class="auxtext"><b>Año:</b></p>
+    <select id="year" name="year" onchange="selectPlot()">
+
+      
+      <option value="2013">2013</option>
+      
+      <option value="2014">2014</option>
+      
+      <option value="2015">2015</option>
+      
+      <option value="2016">2016</option>
+      
+      <option value="2017">2017</option>
+      
+      <option value="2018">2018</option>
+      
+      <option value="2019">2019</option>
+      
+      <option value="2020">2020</option>
+      
+
+    </select>
+    <hr>
+    <a class="auxtext"
+      href="http://www.anh.gov.co/estadisticas-del-sector/sistemas-integrados-operaciones/estad%C3%ADsticas-producci%C3%B3n">
+      Datos de la ANH.</a>
+  </nav>
+
+  <div>
+
+    
+    
+    <div class="myImage" id="2013" style="display:block"> <img src="./web/assets/2013.png" alt="2013"> </div>
+    
+    
+    
+    <div class="myImage" id="2014" style="display:none"> <img src="./web/assets/2014.png" alt="2014"> </div>
+    
+    
+    
+    <div class="myImage" id="2015" style="display:none"> <img src="./web/assets/2015.png" alt="2015"> </div>
+    
+    
+    
+    <div class="myImage" id="2016" style="display:none"> <img src="./web/assets/2016.png" alt="2016"> </div>
+    
+    
+    
+    <div class="myImage" id="2017" style="display:none"> <img src="./web/assets/2017.png" alt="2017"> </div>
+    
+    
+    
+    <div class="myImage" id="2018" style="display:none"> <img src="./web/assets/2018.png" alt="2018"> </div>
+    
+    
+    
+    <div class="myImage" id="2019" style="display:none"> <img src="./web/assets/2019.png" alt="2019"> </div>
+    
+    
+    
+    <div class="myImage" id="2020" style="display:none"> <img src="./web/assets/2020.png" alt="2020"> </div>
+    
+    
+
+  </div>
+
+  <script src="./templates/script.js"></script>
+</body>
+
+</html>
