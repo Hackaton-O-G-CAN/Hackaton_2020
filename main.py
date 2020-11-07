@@ -1,17 +1,28 @@
-from utils import downloadData
 from utils import dataProc
+from utils import downloadData
+from utils import generateWeb
+from utils import generateDB
+
 
 if __name__ == "__main__":
 
-     def run():
+    def run():
 
-          download = downloadData.downloadData()
-          download.getData()
+        download = downloadData.downloadData()
+        download.getData()
 
-          data = dataProc.dataProc()
-          df = data.loadData()
+        data = dataProc.dataProc()
+        df = data.loadData()
 
-          df_dict = data.cleanData(df)
+        df_dict = data.cleanData(df)
 
-          print(df_dict.keys())
-     run()
+        db = generateDB.generateDB(df_dict)
+        db.createDB(df_dict)
+
+        web = generateWeb.generateWeb(df_dict)
+        web.parseHTML(df_dict)
+
+        data = dataProc.dataProc()
+        df = data.loadBlindData()
+
+    run()

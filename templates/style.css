@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 10px;
+  }
+
+  header {
+    font-size: 20px;
+  }
+
+  nav {
+    float: left;
+    width: 20%;
+    height: 150px;
+    background: #eeeeee;
+    padding: 20px;
+  }
+
+  .seltext {
+    font-weight: bold;
+  }
+
+  .auxtext {
+    font-size: 14px;
+    color: #807F7F;
+  }
+  .auxtitle {
+    font-size: 25px;
+    color: #807F7F;
+    text-align:center;
+  }
+  .column {
+    float: right;
+    width: 70%;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }

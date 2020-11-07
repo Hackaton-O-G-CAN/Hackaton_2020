@@ -33,7 +33,7 @@ class downloadData:
             # Get <a href></a> tags
             files_containers = html_soup.find_all('a', href=True)
             # Filter useful tags
-            links = [href["href"] if (((".xlsx") and ("crudo")) in str(href).lower()) else "" for href in files_containers]
+            links = [href["href"] if (((".xls") and ("crudo")) in str(href).lower()) else "" for href in files_containers]
 
             # For each link, clean empty records
             for link in links:
@@ -42,6 +42,7 @@ class downloadData:
                 else:
                     links_clean.append(link)
             print("Scrapping finished")
+            print(links_clean)
             return links_clean
 
         except:
@@ -57,7 +58,7 @@ class downloadData:
 
         # Find filenames before ".xlsx" then clean non matching records
         for link in links:
-            file = re.findall(r'[^\/]+(?=\.xlsx$)', link)
+            file = re.findall(r'[^\/]+(?=\.)', link)
             if len(file) == 0:
                 continue
             else:
@@ -65,7 +66,9 @@ class downloadData:
                 file = file[0].lower().replace('%', '').replace('.', '').replace('-', '').replace('_', '')
 
                 # Extract year and month (three first letters) or simply year from filename and rename it
-                if len(re.findall(r'[0-9]{4}[a-z]{3}', file)) == 0:
+                if len(re.findall(r'[0-9]{6}',file)) != 0 and "202016" in re.findall(r'[0-9]{6}',file)[0]:
+                    file = "2016"
+                elif len(re.findall(r'[0-9]{4}[a-z]{3}', file)) == 0:
                     file = re.findall(r'[0-9]{4}$', file)[0]
                 else:
                     file = re.findall(r'[0-9]{4}[a-z]{3}', file)[0]
@@ -73,8 +76,6 @@ class downloadData:
                         file = "2019"
 
             filenames.append(file)
-        print("Filenames")
-        print(filenames)
         return filenames
 
     def getData(self):
@@ -91,13 +92,15 @@ class downloadData:
             for url, filename in zip(links, filenames):
                 base_url = "http://www.anh.gov.co"
                 full_url = f"{base_url}/{url}"
-
-                output_dir = Path(f"./{base_dir}/{filename}.xlsx")
+                if "2016" in filename:
+                    output_dir = Path(f"./{base_dir}/{filename}.xls")
+                else:
+                    output_dir = Path(f"./{base_dir}/{filename}.xlsx")
 
                 if os.path.isfile(output_dir) == True:
                     continue
                 else:
-                    data = requests.get(full_url, stream=True)
+                    data = requests.get(full_url, stream=True, allow_redirects=True)
                     with open(output_dir, 'wb') as f:
                         for ch in data:
                             f.write(ch)
