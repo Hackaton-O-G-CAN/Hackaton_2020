@@ -42,6 +42,7 @@ class downloadData:
                 else:
                     links_clean.append(link)
             print("Scrapping finished")
+            print(links_clean)
             return links_clean
 
         except:
@@ -75,8 +76,6 @@ class downloadData:
                         file = "2019"
 
             filenames.append(file)
-        print("Filenames")
-        print(filenames)
         return filenames
 
     def getData(self):
@@ -101,7 +100,7 @@ class downloadData:
                 if os.path.isfile(output_dir) == True:
                     continue
                 else:
-                    data = requests.get(full_url, stream=True)
+                    data = requests.get(full_url, stream=True, allow_redirects=True)
                     with open(output_dir, 'wb') as f:
                         for ch in data:
                             f.write(ch)

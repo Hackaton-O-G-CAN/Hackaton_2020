@@ -23,3 +23,17 @@ body {
     font-size: 14px;
     color: #807F7F;
   }
+  .auxtitle {
+    font-size: 25px;
+    color: #807F7F;
+    text-align:center;
+  }
+  .column {
+    float: right;
+    width: 70%;
+  }
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
