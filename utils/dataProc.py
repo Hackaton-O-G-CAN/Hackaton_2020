@@ -99,7 +99,7 @@ class dataProc:
             df_dict[i] = df_dict[i].reset_index(drop=True)
 
             # Set new first row as cols names
-            df_dict[i].columns = df_dict[i].columns.str.lower()
+            df_dict[i].columns = df_dict[i].iloc[0].str.lower()
 
             # drop row in the df with cols names
             df_dict[i] = df_dict[i].drop(df_dict[i].index[0])
