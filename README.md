@@ -143,11 +143,11 @@ pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
 
 Then in your localhost go to: http://localhost:8888/nbextensions?nbextension=codefolding/main and activate the folling extensions: codefolding, codefolding in editor, collapsible headings, table of contents, qgrid/extention
 
-![extensions](./figs/extensions.png)
+<img src="./figs/extensions.png">
 
 Once the installation is done, please activate the table of content for a better user experience
 
-![toc](./figs/toc.png)
+<img src="./figs/toc.png">
 
 extensions reference: https://github.com/ipython-contrib/jupyter_contrib_nbextensions
 
