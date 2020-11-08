@@ -20,7 +20,9 @@ Python 3.8 or later
 Javascript
 CSS
 Web Browser
-Check requirements.txt file to check the required Python libraries and modules.
+Activate Jupyter extensions
+Qgrid in python terminal 
+Check requirements.txt file to check more required Python libraries and modules.
 ```
 How to run the code?
 Open a terminal in the same directory where the `main.py` file is located and run the following command in your terminal,
@@ -32,6 +34,10 @@ Or,
 python main.py
 ```
 It the commands above do not work check your Python installation.
+
+Or,
+```run the tasks and answers from the Jupyter Notebook answers
+```
 
 Once the `main.py` file starts runnings, the start and completion of the stages will show up in the console as follows,
 ```bash
@@ -89,6 +95,60 @@ This module generates a web interface where the data can be interactively access
 ````
 All the directories in the modules above have been optimized to avoid the differences between Unix/Posix/Windows.
 ````
+## Notebook
+
+In order to properly run this Notebook properly, please install the notebook extensions and the qgrid package.
+
+Remember: 
+
+<b> Qgrid </b> 
+
+Installing with conda:
+
+only required if you have not added conda-forge to your channels yet
+```Python
+conda config --add channels conda-forge
+
+conda install qgrid
+```
+
+pip install qgrid:
+
+```Python
+jupyter nbextension enable --py --sys-prefix qgrid
+```
+only required if you have not enabled the ipywidgets nbextension yet
+
+```Python
+jupyter nbextension enable --py --sys-prefix widgetsnbextension
+```
+<b> Jupyter extensions: </b> 
+
+Installation with conda:
+
+conda install -c conda-forge jupyter_nbextensions_configurator
+<br>
+conda install -c conda-forge jupyter_contrib_nbextensions
+
+Or with pip:
+
+```Python
+pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install
+```
+in case you get permission errors on MacOS,
+
+```Python
+pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install --user
+```
+
+Then in your localhost go to: http://localhost:8888/nbextensions?nbextension=codefolding/main and activate the folling extensions: codefolding, codefolding in editor, collapsible headings, table of contents, qgrid/extention
+
+![web](./figs/extensions.png)
+
+Once the installation is done, please activate the table of content for a better user experience
+
+![web](./figs/toc.png)
+
 
 ## Web Interface
 
