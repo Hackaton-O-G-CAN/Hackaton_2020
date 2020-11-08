@@ -24,7 +24,8 @@ Activate Jupyter extensions
 Qgrid in python terminal 
 Check requirements.txt file to check more required Python libraries and modules.
 ```
-How to run the code?
+### How to run the code?
+
 Open a terminal in the same directory where the `main.py` file is located and run the following command in your terminal,
 ```bash
 python3 main.py
@@ -35,9 +36,8 @@ python main.py
 ```
 It the commands above do not work check your Python installation.
 
-Or,
-```run the tasks and answers from the Jupyter Notebook answers
-```
+Run the tasks and answers from the Jupyter Notebook answers
+
 
 Once the `main.py` file starts runnings, the start and completion of the stages will show up in the console as follows,
 ```bash
@@ -95,7 +95,7 @@ This module generates a web interface where the data can be interactively access
 ````
 All the directories in the modules above have been optimized to avoid the differences between Unix/Posix/Windows.
 ````
-## Notebook
+### Notebook
 
 In order to properly run this Notebook properly, please install the notebook extensions and the qgrid package.
 
@@ -143,12 +143,13 @@ pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
 
 Then in your localhost go to: http://localhost:8888/nbextensions?nbextension=codefolding/main and activate the folling extensions: codefolding, codefolding in editor, collapsible headings, table of contents, qgrid/extention
 
-![web](./figs/extensions.png)
+![extensions](./figs/extensions.png)
 
 Once the installation is done, please activate the table of content for a better user experience
 
-![web](./figs/toc.png)
+![toc](./figs/toc.png)
 
+extensions reference: https://github.com/ipython-contrib/jupyter_contrib_nbextensions
 
 ## Web Interface
 
