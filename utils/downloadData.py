@@ -54,8 +54,9 @@ class downloadData:
         Returns a list of filenames.
         Extract the filenames of the links:list provided.
         """
+        self.links = links
         filenames = []
-
+        print(links)
         # Find filenames before ".xlsx" then clean non matching records
         for link in links:
             file = re.findall(r'[^\/]+(?=\.)', link)
@@ -100,7 +101,8 @@ class downloadData:
                 if os.path.isfile(output_dir) == True:
                     continue
                 else:
-                    data = requests.get(full_url, stream=True, allow_redirects=True)
+                    print(full_url)
+                    data = requests.get(full_url)#, stream=True)#, allow_redirects=True)
                     with open(output_dir, 'wb') as f:
                         for ch in data:
                             f.write(ch)
