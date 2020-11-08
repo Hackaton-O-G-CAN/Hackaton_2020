@@ -94,10 +94,12 @@ class dataProc:
 
             # Delete rows with just nan values
             df_dict[i] = df_dict[i].dropna(axis=0, thresh=2)
+            df_dict[i] = df_dict[i].dropna(axis=1, thresh=5) #delete columns with just nan values
+            
             df_dict[i] = df_dict[i].reset_index(drop=True)
 
             # Set new first row as cols names
-            df_dict[i].columns = df_dict[i].iloc[0].str.lower()
+            df_dict[i].columns = df_dict[i].columns.str.lower()
 
             # drop row in the df with cols names
             df_dict[i] = df_dict[i].drop(df_dict[i].index[0])
@@ -142,10 +144,58 @@ class dataProc:
 
             if "2017" in filename:
                 df_dict_blind['2017'] = pd.read_excel(file_dir)
-            elif "2019" in filename:
-                df_dict_blind['2019'] = pd.read_excel(file_dir)
             elif "2018" in filename:
                 df_dict_blind["2018"] = pd.read_excel(file_dir)
+            elif "2019" in filename:
+                df_dict_blind['2019'] = pd.read_excel(file_dir)
 
         print("Loading data blind test finished")
         return df_dict_blind
+
+    def cleanBlindData(self, df_dict: dict) -> dict:
+        """
+        Returns a dictionary with years as keys and transformed DataFrames as values
+        Clean a dictionary containing keys as yeas and its corresponding Pandas DataFrame
+        """
+        self.df_dict = df_dict
+        print("Cleanning blind data")
+        col_order = ['diciembre','noviembre','octubre','septiembre','agosto','julio','junio',
+                'mayo','abril','marzo','febrero','enero','campo','contrato','operadora','municipio','departamento']
+
+        # Batch of cleanning data for all datasets.
+        for i in df_dict.keys():
+
+            # Delete rows with just nan values
+            df_dict[i] = df_dict[i].dropna(axis=0, thresh=2)
+            df_dict[i] = df_dict[i].dropna(axis=1, thresh=5) #delete columns with just nan values
+            df_dict[i] = df_dict[i].reset_index(drop=True)
+
+            # Set new first row as cols names
+            df_dict[i].columns = df_dict[i].columns.str.lower()
+
+            # drop row in the df with cols names
+            if ("empresa" in df_dict[i].columns):
+                df_dict[i].rename(columns={"empresa": "operadora"}, inplace=True)
+
+            # Special Considerations on cleanning the data
+            if ("campo" and "operadora" and "departamento") in df_dict[i].keys():
+                df_dict[i] = df_dict[i].drop(df_dict[i][df_dict[i]["campo"].isnull() & df_dict[i]["operadora"].isnull() & df_dict[i]["departamento"].isnull()].index)
+
+            to_lower_case = ["campo", "contrato", "operadora","departamento"]
+            for to_lower in to_lower_case:
+                if to_lower in df_dict[i].columns:
+                    df_dict[i][to_lower] = df_dict[i][to_lower].str.lower()
+                    df_dict[i][to_lower] = df_dict[i][to_lower].str.replace(" ","-")
+
+            # Clean trailling spaces in column names
+            for j in list(df_dict[i].columns):
+                df_dict[i] = df_dict[i].rename(columns={str(j): str(j.strip())})
+
+            # Puts the columns in a common order for each dataframe
+            for j in col_order:
+                if j in list(df_dict[i].columns):
+                    first_col = df_dict[i].pop(j)
+                    df_dict[i].insert(0, j, first_col)
+
+        print("Cleaning blind data finsihed")
+        return df_dict

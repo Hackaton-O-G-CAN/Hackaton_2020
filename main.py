@@ -24,5 +24,5 @@ if __name__ == "__main__":
 
         data = dataProc.dataProc()
         df = data.loadBlindData()
-
+        df_blind = data.cleanBlindData(df)
     run()
