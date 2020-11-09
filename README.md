@@ -146,9 +146,9 @@ Once the installation is done, please activate the table of content for a better
 
 extensions reference: https://github.com/ipython-contrib/jupyter_contrib_nbextensions
 
-##Blind test dataset decryption 
+## Blind test dataset decryption
 
-You will find this section at the end in the Notebook
+You will find this section at the end in the Notebook or in the decrypt.py file
 
 ## Authors
 
