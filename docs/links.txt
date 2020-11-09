@@ -8,6 +8,7 @@
 '/Operaciones-Regal%c3%adas-y-Participaciones/Sistema-Integrado-de-Operaciones/Documents/Producci%c3%b3n%20Fiscalizada%20Crudo%202019-DIC.xlsx'
 '/Operaciones-Regal%c3%adas-y-Participaciones/Sistema-Integrado-de-Operaciones/Documents/Producci%c3%b3n%20Fiscalizada%20Crudo%202018.xlsx'
 '/Operaciones-Regal%c3%adas-y-Participaciones/Sistema-Integrado-de-Operaciones/Documents/Produccion-fiscalizada-crudo-2017.xlsx'
+'/Operaciones-Regal%c3%adas-y-Participaciones/Sistema-Integrado-de-Operaciones/Documents/Producci%C3%B3n%20fiscalizada%20crudo%202016_18042018.xls'
 '/Operaciones-Regal%c3%adas-y-Participaciones/Sistema-Integrado-de-Operaciones/Documents/Producci%c3%b3n%20Fiscalizada%20Crudo%202015.xlsx'
 '/Operaciones-Regal%c3%adas-y-Participaciones/Sistema-Integrado-de-Operaciones/Documents/Producci%c3%b3n%20fiscalizada%20de%20crudo_2014_31122014.xlsx'
 '/Operaciones-Regal%c3%adas-y-Participaciones/Sistema-Integrado-de-Operaciones/Documents/Producci%c3%b3n%20fiscalizada%20de%20crudo%20a%c3%b1o%202013.xlsx'

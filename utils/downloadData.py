@@ -33,7 +33,7 @@ class downloadData:
             # Get <a href></a> tags
             files_containers = html_soup.find_all('a', href=True)
             # Filter useful tags
-            links = [href["href"] if (((".xlsx") and ("crudo")) in str(href).lower()) else "" for href in files_containers]
+            links = [href["href"] if (((".xls") and ("crudo")) in str(href).lower()) else "" for href in files_containers]
 
             # For each link, clean empty records
             for link in links:
@@ -53,11 +53,11 @@ class downloadData:
         Returns a list of filenames.
         Extract the filenames of the links:list provided.
         """
+        self.links = links
         filenames = []
-
         # Find filenames before ".xlsx" then clean non matching records
         for link in links:
-            file = re.findall(r'[^\/]+(?=\.xlsx$)', link)
+            file = re.findall(r'[^\/]+(?=\.)', link)
             if len(file) == 0:
                 continue
             else:
@@ -65,7 +65,9 @@ class downloadData:
                 file = file[0].lower().replace('%', '').replace('.', '').replace('-', '').replace('_', '')
 
                 # Extract year and month (three first letters) or simply year from filename and rename it
-                if len(re.findall(r'[0-9]{4}[a-z]{3}', file)) == 0:
+                if len(re.findall(r'[0-9]{6}',file)) != 0 and "202016" in re.findall(r'[0-9]{6}',file)[0]:
+                    file = "2016"
+                elif len(re.findall(r'[0-9]{4}[a-z]{3}', file)) == 0:
                     file = re.findall(r'[0-9]{4}$', file)[0]
                 else:
                     file = re.findall(r'[0-9]{4}[a-z]{3}', file)[0]
@@ -73,8 +75,6 @@ class downloadData:
                         file = "2019"
 
             filenames.append(file)
-        print("Filenames")
-        print(filenames)
         return filenames
 
     def getData(self):
@@ -90,17 +90,24 @@ class downloadData:
 
             for url, filename in zip(links, filenames):
                 base_url = "http://www.anh.gov.co"
-                full_url = f"{base_url}/{url}"
-
-                output_dir = Path(f"./{base_dir}/{filename}.xlsx")
+                full_url = f"{base_url}{url}"
+                if "2016" in filename:
+                    output_dir = Path(f"./{base_dir}/{filename}.xls")
+                else:
+                    output_dir = Path(f"./{base_dir}/{filename}.xlsx")
 
                 if os.path.isfile(output_dir) == True:
                     continue
                 else:
-                    data = requests.get(full_url, stream=True)
-                    with open(output_dir, 'wb') as f:
-                        for ch in data:
-                            f.write(ch)
+                    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36"}
+                    MAX_RETRIES = 20
+                    session = requests.Session()
+                    adapter = requests.adapters.HTTPAdapter(max_retries=MAX_RETRIES)
+                    session.mount('https://', adapter)
+                    session.mount('http://', adapter)
+
+                    data = session.get(full_url, timeout=15, allow_redirects=True, headers=headers)
+                    open(output_dir, 'wb').write(data.content)
         else:
             os.mkdir(base_dir)
             self.getData()
