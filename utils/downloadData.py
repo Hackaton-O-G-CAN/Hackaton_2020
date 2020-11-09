@@ -42,7 +42,6 @@ class downloadData:
                 else:
                     links_clean.append(link)
             print("Scrapping finished")
-            print(links_clean)
             return links_clean
 
         except:
@@ -56,7 +55,6 @@ class downloadData:
         """
         self.links = links
         filenames = []
-        print(links)
         # Find filenames before ".xlsx" then clean non matching records
         for link in links:
             file = re.findall(r'[^\/]+(?=\.)', link)
@@ -92,7 +90,7 @@ class downloadData:
 
             for url, filename in zip(links, filenames):
                 base_url = "http://www.anh.gov.co"
-                full_url = f"{base_url}/{url}"
+                full_url = f"{base_url}{url}"
                 if "2016" in filename:
                     output_dir = Path(f"./{base_dir}/{filename}.xls")
                 else:
@@ -101,11 +99,15 @@ class downloadData:
                 if os.path.isfile(output_dir) == True:
                     continue
                 else:
-                    print(full_url)
-                    data = requests.get(full_url)#, stream=True)#, allow_redirects=True)
-                    with open(output_dir, 'wb') as f:
-                        for ch in data:
-                            f.write(ch)
+                    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36"}
+                    MAX_RETRIES = 20
+                    session = requests.Session()
+                    adapter = requests.adapters.HTTPAdapter(max_retries=MAX_RETRIES)
+                    session.mount('https://', adapter)
+                    session.mount('http://', adapter)
+
+                    data = session.get(full_url, timeout=15, allow_redirects=True, headers=headers)
+                    open(output_dir, 'wb').write(data.content)
         else:
             os.mkdir(base_dir)
             self.getData()
