@@ -1,5 +1,4 @@
 # Other
-*.xlsx
 *.pickle
 .DS_Store
 .vscode/*
