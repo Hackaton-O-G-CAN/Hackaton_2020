@@ -1,10 +1,9 @@
 # Other
+./data/
 *.pickle
 .DS_Store
 .vscode/*
 .vscode/
-./web/assets/*
-./web/assets/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
