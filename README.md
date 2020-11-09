@@ -24,6 +24,11 @@ Activate Jupyter extensions
 Qgrid in python terminal 
 Check requirements.txt file to check more required Python libraries and modules.
 ```
+## Web Interface
+
+In the <b> interface directory</b> you will find `index.html`, run it with a Live Server or with the browser of your preference.
+
+
 ### How to run the code?
 
 Open a terminal in the same directory where the `main.py` file is located and run the following command in your terminal,
@@ -48,10 +53,6 @@ Cleaning data finsihed
 Initializing database
 Creating tables
 Dumped tables into database finished
-Generating web interface
-Rendering images
-Images rendered
-Web interface generated
 ```
 Once the `main.py` file finished running you will have the following new folders in the directory,
 ```bash
@@ -85,12 +86,6 @@ This module dumps dowloaded data to a database using SQLite. The `anh_database.d
 ![query](./figs/query.png)
 Another example is shown below:
 ![query1](./figs/query1.png)
-
-```Python
-generateWeb.py
-```
-This module generates a web interface where the data can be interactively accesssed. An example is shown below:
-![web](./figs/web.png)
 
 ````
 All the directories in the modules above have been optimized to avoid the differences between Unix/Posix/Windows.
@@ -151,9 +146,6 @@ Once the installation is done, please activate the table of content for a better
 
 extensions reference: https://github.com/ipython-contrib/jupyter_contrib_nbextensions
 
-## Web Interface
-
-In the same directory where `main.py` file is located you will find `index.html`. Run it with a Live Server or with the browser of your preference.
 
 ## Authors
 
