@@ -48,10 +48,6 @@ Cleaning data finsihed
 Initializing database
 Creating tables
 Dumped tables into database finished
-Generating web interface
-Rendering images
-Images rendered
-Web interface generated
 ```
 Once the `main.py` file finished running you will have the following new folders in the directory,
 ```bash
@@ -85,12 +81,6 @@ This module dumps dowloaded data to a database using SQLite. The `anh_database.d
 ![query](./figs/query.png)
 Another example is shown below:
 ![query1](./figs/query1.png)
-
-```Python
-generateWeb.py
-```
-This module generates a web interface where the data can be interactively accesssed. An example is shown below:
-![web](./figs/web.png)
 
 ````
 All the directories in the modules above have been optimized to avoid the differences between Unix/Posix/Windows.
@@ -153,7 +143,7 @@ extensions reference: https://github.com/ipython-contrib/jupyter_contrib_nbexten
 
 ## Web Interface
 
-In the same directory where `main.py` file is located you will find `index.html`. Run it with a Live Server or with the browser of your preference.
+In the interface directory you will find `index.html`, run it with a Live Server or with the browser of your preference.
 
 ## Authors
 
