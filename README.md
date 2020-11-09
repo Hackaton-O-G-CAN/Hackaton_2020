@@ -24,6 +24,11 @@ Activate Jupyter extensions
 Qgrid in python terminal 
 Check requirements.txt file to check more required Python libraries and modules.
 ```
+## Web Interface
+
+In the <b> interface directory</b> you will find `index.html`, run it with a Live Server or with the browser of your preference.
+
+
 ### How to run the code?
 
 Open a terminal in the same directory where the `main.py` file is located and run the following command in your terminal,
@@ -141,9 +146,6 @@ Once the installation is done, please activate the table of content for a better
 
 extensions reference: https://github.com/ipython-contrib/jupyter_contrib_nbextensions
 
-## Web Interface
-
-In the interface directory you will find `index.html`, run it with a Live Server or with the browser of your preference.
 
 ## Authors
 

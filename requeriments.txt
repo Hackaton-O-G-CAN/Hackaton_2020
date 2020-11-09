@@ -1,5 +1,4 @@
 beautifulsoup4==4.9.32
-Jinja2==2.11.
 MarkupSafe==1.1.1
 matplotlib==3.3.2
 numpy==1.19.3
